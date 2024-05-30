@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-//to create:
-import AddPlantCare from "../components/AddPlantCare";
-import PlantCareCard from "../components/PlantCareCard";
-import plantsService from "../services/plant.service";
+// //to create:
+// import AddPlantCare from "../components/AddPlantCare";
+// import PlantCareCard from "../components/PlantCareCard";
+// import plantsService from "../services/plant.service";
 
 const API_URL = "http://localhost:5010";
 
@@ -53,4 +53,8 @@ return (
         </Link>
     </div>
 );
+
+
 }
+
+export default PlantDetailsPage;

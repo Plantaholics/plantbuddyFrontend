@@ -2,9 +2,9 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 
 //to create
-import PlantCard from "../components/PlantCard";
-import AddNewPlant from "../components/AddNewPlant";
-import plantsService from "../services/plant.service";
+// import PlantCard from "../components/PlantCard";
+// import AddNewPlant from "../components/AddNewPlant";
+// import plantsService from "../services/plant.service";
 
 const API_URL = "http://localhost:5010";
 

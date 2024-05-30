@@ -1,6 +1,7 @@
 import axios from "axios";
 import { config } from "dotenv";
 
+
 class AuthService {
     constructor() {
         //create a new instances of axios with a custom configuration
@@ -37,4 +38,5 @@ class AuthService {
 
 //creating an instance object
 const authService = new AuthService();
+
 export default authService;
