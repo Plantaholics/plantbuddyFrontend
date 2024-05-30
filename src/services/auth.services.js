@@ -1,24 +1,23 @@
 import axios from "axios";
-import { config } from "dotenv";
-
 
 class AuthService {
     constructor() {
-        //create a new instances of axios with a custom configuration
         this.api = axios.create({
-            //setting API's base URL so that all requests use the same URL
             baseURL: import.meta.env.SERVER_URL || "http://localhost:5010"
         });
 
-        //setting JWT token in the headers for every request
-        this.api.interceptors.request.use.apply(config => {
-            //retrieveing the token from the localstorage
+        // Setting JWT token in the headers for every request
+        this.api.interceptors.request.use(config => {
+            // Retrieving the token from the localStorage
             const storedToken = localStorage.getItem("authToken");
 
-            if(storedToken) {
-                config.headers = { Authorization: `Bearer ${storedToken}`}
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` };
             }
             return config;
+        }, error => {
+            // Handle the error
+            return Promise.reject(error);
         });
     }
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import plantsService from "../services/plant.service";
+import plantsService from "../services/plants.services";
 
 const API_URL = "http:localhost:5010";
 
@@ -43,21 +43,20 @@ function EditPlantPage(prop) {
             });
     };
 
-    // this function sets the Family in the form
-    const handleChange = (e) => {
-        e.prevenDefault();
-        setFamily(e.target.value);
-      };
-
     const deletePlant = () => {
-        
-        //replace axios.delete
         plantsService.deletePlant(plantId)
             .then(() => {
                 navigate("/plants");
             })
             .catch((err) => console.log(err));
     };
+
+    // this function sets the Family in the form
+    const handleChange = (e) => {
+        e.prevenDefault();
+        setFamily(e.target.value);
+      };
+
 
     return (
         <div>
@@ -115,6 +114,8 @@ function EditPlantPage(prop) {
                     />
                 </label>
             </form>
+            
+            <button onClick={deletePlant}>Oh no, bye Buddy</button>
         </div>
     );
 
