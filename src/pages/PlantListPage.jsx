@@ -26,7 +26,7 @@ function PlantListPage(props) {
     return (
         <div>
             <h1>This is all plants page</h1>
-            <AddPlant />
+            <AddPlant refreshProjects={getAllPlants} />
             {plants.map((plant) => ( <PlantCard key={plant._id} plant={plant}/>))}
 
         </div>
