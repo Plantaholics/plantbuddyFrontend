@@ -1,7 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
 import plantsService from "../services/plants.services";
-import { response } from "express";
 
 const API_URL = "http://localhost:5010";
 
@@ -11,12 +10,11 @@ function AddPlant(props){
   const [origin, setOrigin] = useState("");
   const [family, setFamily] = useState("");
   const [picture_url, setPictureUrl] = useState("");
-  const [cares, setPlantCare] = useState() //ASK LUIS
 
   const handleFormSubmit = (e)=> {
     e.preventDefault();
 
-    const requestBody = {common_name, scientific_name, origin, family, picture_url, cares}
+    const requestBody = {common_name, scientific_name, origin, family, picture_url}
 
     const storedToken = localStorage.getItem("authToken");
 
@@ -27,13 +25,13 @@ function AddPlant(props){
             setOrigin("");
             setFamily("");
             setPictureUrl("");
-            setPlantCare("");
+            // props.refreshProjects();
         })
         .catch((err) => console.log(err));
     };
 
     const handleChange = (e) => {
-        e.prevenDefault();
+        e.preventDefault();
         setFamily(e.target.value);
       };
 
@@ -70,7 +68,7 @@ function AddPlant(props){
                 </label>
 
                 <label>Family
-                    <select name="family" value={setFamily} onChange={handleChange}>
+                    <select name="family" value={family} onChange={handleChange}>
                         <option value="">Pick a family</option>
                         <option value="araceae">araceae</option>
                         <option value="asparagaceae">asparagaceae</option>

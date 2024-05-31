@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PlantCard from "../components/PlantCard";
-// import AddPlant from "../components/AddPlant";
+import AddPlant from "../components/AddPlant";
 import plantsService from "../services/plants.services";
 
 const API_URL = "http://localhost:5010";
@@ -26,7 +26,9 @@ function PlantListPage(props) {
     return (
         <div>
             <h1>This is all plants page</h1>
+            <AddPlant />
             {plants.map((plant) => ( <PlantCard key={plant._id} plant={plant}/>))}
+
         </div>
     );
 }
