@@ -4,11 +4,7 @@ import AddPlantCare from "../components/AddPlantCare";
 import PlantCareCard from "../components/PlantCareCard";
 import plantsService from "../services/plants.services";
 import plantCaresService from "../services/plantCares.services";
-<<<<<<< HEAD
-import PlantCard from "../components/PlantCard";
-=======
 // import PlantCard from "../components/PlantCard";
->>>>>>> a2a7af1562f03b561b3b538f99b4a02be16ca25a
 
 const API_URL = "http://localhost:5010";
 
