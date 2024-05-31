@@ -1,32 +1,44 @@
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+function Navbar() {
+  const auth = localStorage.getItem("authToken");
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
 
-function Navbar(){
+  return (
+    <div>
+      <nav>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/plants">
+          <button>Plants</button>
+        </Link>
 
-    return (
-        <div>
-        <nav>
-            <Link to="/">
-                <button>Home</button>
-            </Link>
-            <Link to="/plants">
-            <button>Plants</button>
-            </Link>
+        <Link to="/signup">
+          {" "}
+          <button>Join us</button>
+        </Link>
 
-            <Link to="/signup">
-                {" "}
-                <button>Join us</button>
-            </Link>
+        {/* <Link to="/login">
+          <button>Login</button>
+        </Link> */}
 
-            <Link to="/login">
-                <button>Login</button>
-            </Link>
-
-            <button>Log Out</button>
-
-        </nav>
-        </div>
-    );
+        {auth ? (
+          <Link onClick={logout} to="/">
+            <button>Log out</button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button>LogIn</button>
+          </Link>
+        )}
+      </nav>
+    </div>
+  );
 }
 
 export default Navbar;

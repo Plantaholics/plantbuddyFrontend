@@ -59,11 +59,14 @@ return (
         <input type="text" nmae="name" value={name} onChange={handleName} />
 
         <button type="submit">Sign Up</button>
+
     </form>
     {errorMessage && <p className="error-message">{errorMessage}</p>}
 
     <p>Already a Plantbuddy?</p>
-    <Link to={"/login"}>Log In</Link>
+    <Link to={"/login"}>
+        <button>Login</button>
+    </Link>
 </div>
 );
 

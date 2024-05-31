@@ -57,7 +57,9 @@ function LoginPage(prop){
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             <h4>Not a plantbuddy yet?</h4>
-            <Link to={"/signup"}>Join us</Link>
+            <Link to={"/signup"}>
+            <button>Join us</button>
+            </Link>
         </div>
     );
 
