@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-// We are deconstructing props object directly inside the () of the function
+//destructuring the plant object from the props =>
 function PlantCard({ plant }) {
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/plants/${plant._id}`);
+  }
   
   return (
-    <div>
+    <div onClick={handleClick}>
       <h3>{plant.common_name}</h3>
       <h3>{plant.scientific_name}</h3>
       <p>{plant.origin}</p>
       <p>{plant.family}</p>
       <img src={plant.picture_url} alt="this is a plant" />
-      <p>{plant.plantcare}</p>
     </div>
   );
 }

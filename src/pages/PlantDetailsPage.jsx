@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import AddPlantCare from "../components/AddPlantCare";
-import PlantCard from "../components/PlantCard";
 import PlantCareCard from "../components/PlantCareCard";
 import plantsService from "../services/plants.services";
+import plantCaresService from "../services/plantCares.services";
+import PlantCard from "../components/PlantCard";
 
 const API_URL = "http://localhost:5010";
+
+
 
 function PlantDetailsPage() {
   const [plant, setPlant] = useState(null);
@@ -17,6 +20,7 @@ function PlantDetailsPage() {
     plantsService
       .getPlant(plantId)
       .then((response) => {
+        console.log("API Response:", response.data); 
         const onePlant = response.data;
         setPlant(onePlant);
       })
@@ -27,25 +31,25 @@ function PlantDetailsPage() {
     getPlant();
   }, []);
 
+
+
+
   return (
     <div>
-      <h1>This is the plant details page</h1>
-      
-      {plant && (
-        <>
-          <h3>{plant.common_name}</h3>
-          <p>{plant.scientific_name}</p>|
-          <p>{plant.origin}</p>
-          <p>{plant.family}</p>
-          <p>{plant.picture_url}</p>
-          <p>{plant.plantcare}</p>
-        </>
-      )}
+      <div>
+        <h1>This is the plant details page</h1>
+        {plant && (
+          <>
+            <h3>{plant.common_name}</h3>
+            <p>Scientific Name: {plant.scientific_name}</p>
+            <p>Origin: {plant.origin}</p>
+            <p>Family: {plant.family}</p>
+            <p><img src={plant.picture_url} alt="this is a plant" /></p>
+          </>
+        )}
+      </div>
 
       <AddPlantCare refreshPlant={getPlant} plantId={plantId} />
-
-      {plant &&
-        plant.cares.map((cares) => <PlantCareCardCard key={cares._id} {...task} />)}
 
       <Link to="/plants">
         <button>Back to plants</button>

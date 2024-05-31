@@ -11,12 +11,12 @@ function AddPlant(props){
   const [origin, setOrigin] = useState("");
   const [family, setFamily] = useState("");
   const [picture_url, setPictureUrl] = useState("");
-  const [plant_care, setPlantCare] = useState() //ASK LUIS
+  const [cares, setPlantCare] = useState() //ASK LUIS
 
   const handleFormSubmit = (e)=> {
     e.preventDefault();
 
-    const requestBody = {common_name, scientific_name, origin, family, picture_url, plant_care}
+    const requestBody = {common_name, scientific_name, origin, family, picture_url, cares}
 
     const storedToken = localStorage.getItem("authToken");
 
