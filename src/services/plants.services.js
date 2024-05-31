@@ -23,8 +23,13 @@ class PlantsService {
     };
 
     //Get /api/plants
-    getAllPlants = (id) => {
-        return this.api.get(`/api/plants/${id}`);
+    getAllPlants = () => {
+        return this.api.get(`/api/plants/`);
+    };
+
+    //Get one plant /api/plants/id
+    getPlant = (plantId) => {
+        return this.api.get(`/api/plants/${plantId}`);
     };
 
     // PUT /api/plants/:id

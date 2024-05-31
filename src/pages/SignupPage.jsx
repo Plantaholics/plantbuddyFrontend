@@ -1,7 +1,8 @@
 import { useState } from "react";;
-import axios from "axios";
 import { Link, useNavigate} from "react-router-dom";
 import authService from "../services/auth.services";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5010";
 
@@ -24,12 +25,12 @@ function SignupPage(props){
         const requestBody = {email, password, name};
 
         // replace axios.post
-    authService.signUp(requestBody)
+    authService.signup(requestBody)
     .then((response)=> {
         navigate("/login");
     })
     .catch((err) => {
-        let errorDesription = "An unexpected error occured";
+        let errorDescription = "An unexpected error occured";
         if(err.response && EvalError.response.data) {
             if(err.repsonse.data.message){
                 errorDescription = err.response.data.message;
@@ -44,9 +45,10 @@ function SignupPage(props){
 
 return (
     <div className ="SignUpPage">
+        <h1>This is the signup page</h1>
     <h1>Join us</h1>
 
-    <form onSubmit={handleSignupSubmit}>
+    <form onSubmit={handleSubmit}>
         <label>Email:</label>
         <input type="email" name="email" value={email} onChange={handleEmail} />
 

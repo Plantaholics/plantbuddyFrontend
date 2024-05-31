@@ -12,15 +12,17 @@ function Navbar(){
             <Link to="/plants">
             <button>Plants</button>
             </Link>
-            <button>Log Out</button>
 
             <Link to="/signup">
                 {" "}
                 <button>Join us</button>
             </Link>
+
             <Link to="/login">
                 <button>Login</button>
             </Link>
+
+            <button>Log Out</button>
 
         </nav>
         </div>

@@ -1,21 +1,19 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-//to create
-// import PlantCard from "../components/PlantCard";
-// import AddNewPlant from "../components/AddNewPlant";
-// import plantsService from "../services/plant.service";
+import PlantCard from "../components/PlantCard";
+// import AddPlant from "../components/AddPlant";
+import plantsService from "../services/plants.services";
 
 const API_URL = "http://localhost:5010";
 
-function PlantListPage() {
+function PlantListPage(props) {
     const [plants, setPlants] = useState([]);
 
     const getAllPlants = () => {
         const storedToken = localStorage.getItem("authToken");
 
-        plantsService
-            .getAllPlants()
+        plantsService.getAllPlants()
             .then((response) => setPlants(response.data))
             .catch((err) => console.log(err));
     };
@@ -26,11 +24,8 @@ function PlantListPage() {
 
     return (
         <div>
-            {/* we need create the components AddNewPlant and PlantCard */}
-            <AddNewPlant refreshPlants={getAllPlants} />
-            {plants.map((plant) => {
-                <PlantCard key={plant._id} {...plants} />
-            })}
+            <h1>This is all plants page</h1>
+            {plants.map((plant) => ( <PlantCard key={plant._id} plant={plant}/>))}
         </div>
     );
 }

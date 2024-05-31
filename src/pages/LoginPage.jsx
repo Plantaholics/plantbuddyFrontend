@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";;
-import axios from "axios";
 import { Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../context/auth.context";
 import authService from "../services/auth.services";
@@ -18,7 +17,7 @@ function LoginPage(prop){
     const handleEmail = (e) => setEmail(e.target.value);
     const handlePassword = (e) => setPassword(e.target.value);
 
-    const handleSubmit = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
         const requestBody = {email, password};
 
@@ -44,7 +43,8 @@ function LoginPage(prop){
 
     return (
         <div className ="LoginPage">
-            <h1>Plantbuddy credentials</h1>
+            <h1>This is the login page</h1>
+            <h2>Plantbuddy credentials</h2>
 
             <form onSubmit={handleLoginSubmit}>
                 <label>Email:</label>
@@ -56,8 +56,8 @@ function LoginPage(prop){
             </form>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-            <p>Not a Plantbuddy yet?</p>
-            <Link to={"/singup"}>Join us</Link>
+            <h4>Not a plantbuddy yet?</h4>
+            <Link to={"/signup"}>Join us</Link>
         </div>
     );
 
