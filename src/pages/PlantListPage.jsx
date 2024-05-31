@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 import PlantCard from "../components/PlantCard";
 // import AddPlant from "../components/AddPlant";
 import plantsService from "../services/plants.services";
@@ -8,8 +8,9 @@ import plantsService from "../services/plants.services";
 const API_URL = "http://localhost:5010";
 
 function PlantListPage(props) {
-    const [plants, setPlants] = useState([]);
 
+    const navigate = useNavigate();
+    const [plants, setPlants] = useState([]);
     const getAllPlants = () => {
         const storedToken = localStorage.getItem("authToken");
 

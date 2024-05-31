@@ -22,17 +22,13 @@ class PlantCareService {
         return this.api.post("/api/plantcare", requestBody);
     };
 
-    //Get /api/plantcare
-    getAllPlantCares = (id) => {
+    //GET /api/plantcare
+    getPlantCare = (id) => {
         return this.api.get(`/api/plantcare/${id}`);
     };
+    
 
-    // PUT /api/plantcare/:id
-    updatePlantCare = (id, requestBody) => {
-    return this.api.put(`/api/plantcare/${id}`, requestBody);
-    };
-
-    // PUT /api/plantcare/:id
+    // DELETE /api/plantcare/:id
     deletePlantCare = (id) => {
     return this.api.delete(`/api/plantcare/${id}`);
     };

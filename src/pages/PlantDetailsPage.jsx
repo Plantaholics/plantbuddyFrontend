@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import AddPlantCare from "../components/AddPlantCare";
-import PlantCard from "../components/PlantCard";
 import PlantCareCard from "../components/PlantCareCard";
 import plantsService from "../services/plants.services";
+import plantCaresService from "../services/plantCares.services";
+// import PlantCard from "../components/PlantCard";
 
 const API_URL = "http://localhost:5010";
+
+
 
 function PlantDetailsPage() {
   const [plant, setPlant] = useState(null);
@@ -27,32 +30,41 @@ function PlantDetailsPage() {
     getPlant();
   }, []);
 
+  
+  //----------------------------------------------
+
+
   return (
     <div>
-      <h1>This is the plant details page</h1>
-      
-      {plant && (
-        <>
-          <h3>{plant.common_name}</h3>
-          <p>{plant.scientific_name}</p>|
-          <p>{plant.origin}</p>
-          <p>{plant.family}</p>
-          <p>{plant.picture_url}</p>
-          <p>{plant.plantcare}</p>
-        </>
-      )}
+        <div>
+            <h1>This is the plant details page</h1>
+            {plant && (
+                <>
+                    <h3>{plant.common_name}</h3>
+                    <p>Scientific Name: {plant.scientific_name}</p>
+                    <p>Origin: {plant.origin}</p>
+                    <p>Family: {plant.family}</p>
+                    <p>{plant.picture_url}</p>
+                    {plant.cares && (
+                        <>
+                            <h4>Cares:</h4>
+                            {plant.cares.map((care, index) => (
+                                <PlantCareCard key={index} care={care} />
+                            ))}
+                        </>
+                    )}
+                </>
+            )}
+        </div>
 
-      <AddPlantCare refreshPlant={getPlant} plantId={plantId} />
+        <AddPlantCare refreshPlant={getPlant} plantId={plantId} />
 
-      {plant &&
-        plant.cares.map((cares) => <PlantCareCardCard key={cares._id} {...task} />)}
-
-      <Link to="/plants">
-        <button>Back to plants</button>
-      </Link>
-      <Link to={`/plants/edit/${plantId}`}>
-        <button>Edit plant</button>
-      </Link>
+        <Link to="/plants">
+            <button>Back to plants</button>
+        </Link>
+        <Link to={`/plants/edit/${plantId}`}>
+            <button>Edit plant</button>
+        </Link>
     </div>
   );
 }
