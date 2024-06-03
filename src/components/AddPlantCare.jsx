@@ -1,6 +1,8 @@
 import { useState } from "react";
-import careService from "../services/cares.services";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import plantsService from "../services/plants.services";
+
+const API_URL = "http://localhost:5010";
 
 function AddCare(props) {
   const [water, setWater] = useState("");
@@ -8,34 +10,43 @@ function AddCare(props) {
   const [benefits, setBenefits] = useState("");
   const [sunlight, setSunlight] = useState("");
   const [preferred_area, setPreferredArea] = useState("");
-  const [plantId, setPlantId] = useState("");
-
-  const navigate = useNavigate();
+  const [plant, setPlant] = useState(""); // ASK LUIS
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    addCare();
+  };
 
+  const addCare = () => {
+    const { plantId } = props;
     const requestBody = {
       water,
       fertilization,
       benefits,
       sunlight,
       preferred_area,
-      plantId: props.plantId // Ensure you pass plantId correctly
+      plantId,
     };
-    console.log("debuggin with Raffaella",requestBody);
-    
-    careService.createCare(requestBody)
+
+    const storedToken = localStorage.getItem("authToken");
+
+    axios
+      .post(`${API_URL}/api/care`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
+        // Reset the state to clear the inputs
         setWater("");
         setFertilization("");
         setBenefits("");
         setSunlight("");
         setPreferredArea("");
-        setPlantId("");
-        
-        //props.refreshPlant();
-        navigate(`/plants/${plantId}`)
+        setPlant([]);
+
+        // Invoke the callback function coming through the props
+        // from the PlantDetailsPage, to refresh the project details
+
+        props.refreshPlant();
       })
       .catch((err) => console.log(err));
   };
@@ -58,7 +69,10 @@ function AddCare(props) {
 
         <label>
           Fertilization
-          <select name="fertilization" onChange={(e) => setFertilization(e.target.value)}>
+          <select
+            name="fertilization"
+            onChange={(e) => setFertilization(e.target.value)}
+          >
             <option value="every month">every month</option>
             <option value="every 3 months">every 3 months</option>
             <option value="every 6 months">every 6 months</option>
@@ -67,12 +81,20 @@ function AddCare(props) {
 
         <label>
           Benefits
-          <input type="text" name="benefits" value={benefits} onChange={(e) => setBenefits(e.target.value)} />
+          <input
+            type="text"
+            name="benefits"
+            value={benefits}
+            onChange={(e) => setBenefits(e.target.value)}
+          />
         </label>
 
         <label>
           Sunlight
-          <select name="sunlight" onChange={(e) => setSunlight(e.target.value)}>
+          <select
+            name="sunlight"
+            onChange={(e) => setSunlight(e.target.value)}
+          >
             <option value="morning">morning</option>
             <option value="midday">midday</option>
             <option value="afternoon">afternoon</option>
@@ -82,7 +104,10 @@ function AddCare(props) {
 
         <label>
           Preferred area
-          <select name="preferred_area" onChange={(e) => setPreferredArea(e.target.value)}>
+          <select
+            name="preferred_area"
+            onChange={(e) => setPreferredArea(e.target.value)}
+          >
             <option value="only indoor">only indoor</option>
             <option value="only outdoor">only outdoor</option>
             <option value="indoor/outdoor">indoor/outdoor</option>
@@ -92,6 +117,7 @@ function AddCare(props) {
         </label>
 
         <button type="submit">Add cares</button>
+        
       </form>
     </div>
   );

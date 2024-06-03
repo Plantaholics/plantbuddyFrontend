@@ -19,6 +19,7 @@ class CareService {
 
     //POST /api/care
     createCare = (requestBody) => {
+        console.log("careservice" , requestBody);
         return this.api.post("/api/care", requestBody);
     };
 
@@ -31,11 +32,6 @@ class CareService {
     getCare = (careId) => {
         return this.api.get(`/api/care/${careId}`);
     };
-    
-    // DELETE /api/plantcare/:id
-    // deletePlantCare = (id) => {
-    // return this.api.delete(`/api/plantcare/${id}`);
-    // };
 }
 
 

@@ -25,7 +25,7 @@ function AddPlant(props){
             setOrigin("");
             setFamily("");
             setPictureUrl("");
-            props.refreshProjects();
+            props.refreshPlant();
         })
         .catch((err) => console.log(err));
     };

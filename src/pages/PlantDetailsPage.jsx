@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-// import AddPlantCare from "../components/AddPlantCare";
-import CareCard from "../components/CareCard";
+// import CareCard from "../components/CareCard";
 import plantsService from "../services/plants.services";
-// import careService from "../services/cares.services";
-// import PlantCard from "../components/PlantCard";
 
 const API_URL = "http://localhost:5010";
 
@@ -44,12 +41,23 @@ function PlantDetailsPage() {
             <p>Origin: {plant.origin}</p>
             <p>Family: {plant.family}</p>
             <p><img src={plant.picture_url} alt="this is a plant" /></p>
-
+            
+            <h1>Plantbuddy care:</h1>
+            { plant.care ? (
+            <>
+            <p>Water: {plant.care.water}</p>
+            <p>Fertilization: {plant.care.fertilization}</p>
+            <p>Benefits: {plant.care.benefits}</p>  
+            <p>Sunlight: {plant.care.sunlight}</p>
+            <p>Preferred Area: {plant.care.preferred_area}</p>
+          </>              
+            ) : (
+              <p>Sorry, we don't have a specific care yet!</p>
+            )}
           </>
         )}
       </div>
 
-      <CareCard plantId={plantId} />
 
 
       <Link to="/plants">

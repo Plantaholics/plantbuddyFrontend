@@ -17,7 +17,6 @@ function PlantCard({ plant }) {
       <p>{plant.origin}</p>
       <p>{plant.family}</p>
       <img src={plant.picture_url} alt="this is a plant" />
-      
 
     </div>
     <button onClick={handleClick}>View more</button>
