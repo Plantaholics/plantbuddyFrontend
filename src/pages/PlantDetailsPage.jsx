@@ -52,7 +52,7 @@ function PlantDetailsPage() {
             <p>Preferred Area: {plant.care.preferred_area}</p>
           </>              
             ) : (
-              <img src="src/assets/sadplant.png"/>
+              <p>Sorry, we don't have a specific care yet!</p>
             )}
           </>
         )}
