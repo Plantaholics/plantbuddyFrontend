@@ -18,14 +18,12 @@ function Navbar() {
           <button>Plants</button>
         </Link>
 
-        <Link to="/signup">
-          {" "}
-          <button>Join us</button>
-        </Link>
+        {!auth && (
+          <Link to="/signup">
+            <button>Join us</button>
+          </Link>
+        )}
 
-        {/* <Link to="/login">
-          <button>Login</button>
-        </Link> */}
 
         {auth ? (
           <Link onClick={logout} to="/">
@@ -33,7 +31,7 @@ function Navbar() {
           </Link>
         ) : (
           <Link to="/login">
-            <button>LogIn</button>
+            <button>Log in</button>
           </Link>
         )}
       </nav>
