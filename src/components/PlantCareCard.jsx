@@ -26,11 +26,11 @@ function PlantCareCard({ care }) {
   return (
     <div>
       <h2>How to take care of your plant buddy!</h2>
-      <p>Water: {plantCare.water}</p> 
-      <p>Fertilization: {plantCare.fertilization}</p>
-      <p>Benefits: {plantCare.benefits}</p> 
-      <p>Sunlight: {plantCare.sunlight}</p>
-      <p>Preferred Area: {plantCare.preferred_area}</p>
+      <p>Water: {care.water}</p> 
+      <p>Fertilization: {care.fertilization}</p>
+      <p>Benefits: {care.benefits}</p> 
+      <p>Sunlight: {care.sunlight}</p>
+      <p>Preferred Area: {care.preferred_area}</p>
     </div>
   );
 }

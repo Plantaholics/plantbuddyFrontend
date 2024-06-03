@@ -44,6 +44,16 @@ function PlantDetailsPage() {
             <p>Origin: {plant.origin}</p>
             <p>Family: {plant.family}</p>
             <p><img src={plant.picture_url} alt="this is a plant" /></p>
+
+            <h2>Plant Care Information</h2>
+          {plant.cares && plant.cares.length > 0 ? (
+            plant.cares.map((care) => (
+              <PlantCareCard key={care._id} care={care} />
+            ))
+          ) : (
+            <p>No plant care information available</p>
+          )}
+
           </>
         )}
       </div>
