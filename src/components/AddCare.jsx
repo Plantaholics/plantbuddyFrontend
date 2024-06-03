@@ -8,7 +8,8 @@ function AddCare(props) {
   const [benefits, setBenefits] = useState("");
   const [sunlight, setSunlight] = useState("");
   const [preferred_area, setPreferredArea] = useState("");
-  const [plantId, setPlantId] = useState("");
+  const [plantId, setPlantId] = useState(props.plantId || ""  );
+  const [careId, setCareId] = useState(props.careId || ""  );
 
   const navigate = useNavigate();
 
@@ -21,10 +22,17 @@ function AddCare(props) {
       benefits,
       sunlight,
       preferred_area,
-      plantId: props.plantId // Ensure you pass plantId correctly
+      plantId // Ensure you pass plantId correctly
     };
     console.log("debuggin with Raffaella",requestBody);
     
+    careService.updateCare(careId, requestBody)
+    .then((response) => {
+      navigate(`/plants/${plantId}`);
+    })
+    .catch((err) => console.log(err));
+  
+
     careService.createCare(requestBody)
       .then((response) => {
         setWater("");
@@ -35,10 +43,20 @@ function AddCare(props) {
         setPlantId("");
         
         //props.refreshPlant();
-        navigate(`/plants/${plantId}`)
+        navigate(`/plants/${plantId}`);
+        if (props.refreshPlant) {
+          props.refreshPlant();
+        }
+      })
+      .catch((err) => console.log(err));
+
+      careService.updateCare(requestBody)
+      .then((response) => {
+        navigate(`/plants/${plantId}`);
       })
       .catch((err) => console.log(err));
   };
+
 
   return (
     <div>
