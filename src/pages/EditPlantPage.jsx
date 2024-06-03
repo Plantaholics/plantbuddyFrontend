@@ -115,9 +115,9 @@ function EditPlantPage(props) {
 
                 <button type="submit">Update Plant</button>
             </form>
+            <button onClick={deletePlant}>Oh no, bye Buddy</button>
 
             <AddCare plantId={plantId} />
-            <button onClick={deletePlant}>Oh no, bye Buddy</button>
 
 
         </div>
