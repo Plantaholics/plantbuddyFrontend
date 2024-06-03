@@ -1,22 +1,23 @@
 import { useState } from "react";
 import axios from "axios";
+import plantsService from "../services/plants.services";
 
 const API_URL = "http://localhost:5010";
 
-function AddPlantCare(props) {
+function AddCare(props) {
   const [water, setWater] = useState("");
   const [fertilization, setFertilization] = useState("");
   const [benefits, setBenefits] = useState("");
   const [sunlight, setSunlight] = useState("");
   const [preferred_area, setPreferredArea] = useState("");
-  const [plant, setPlant] = useState([]); // ASK LUIS
+  const [plant, setPlant] = useState(""); // ASK LUIS
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    addPlantCare();
+    addCare();
   };
 
-  const addPlantCare = () => {
+  const addCare = () => {
     const { plantId } = props;
     const requestBody = {
       water,
@@ -24,13 +25,13 @@ function AddPlantCare(props) {
       benefits,
       sunlight,
       preferred_area,
-      plant,
+      plantId,
     };
 
     const storedToken = localStorage.getItem("authToken");
 
     axios
-      .post(`${API_URL}/api/plantcare`, requestBody, {
+      .post(`${API_URL}/api/care`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -51,7 +52,7 @@ function AddPlantCare(props) {
   };
 
   return (
-    <div className="AddTask">
+    <div>
       <h3>How do you take care of it?</h3>
 
       <form onSubmit={handleFormSubmit}>
@@ -91,7 +92,7 @@ function AddPlantCare(props) {
         <label>
           Sunlight
           <select
-            name="fertilization"
+            name="sunlight"
             onChange={(e) => setSunlight(e.target.value)}
           >
             <option value="morning">morning</option>
@@ -115,11 +116,11 @@ function AddPlantCare(props) {
           </select>
         </label>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Add cares</button>
         
       </form>
     </div>
   );
 }
 
-export default AddPlantCare;
+export default AddCare;

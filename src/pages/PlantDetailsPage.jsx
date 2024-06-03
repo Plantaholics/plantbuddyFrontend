@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import AddPlantCare from "../components/AddPlantCare";
-import PlantCareCard from "../components/PlantCareCard";
+// import AddPlantCare from "../components/AddPlantCare";
+import CareCard from "../components/CareCard";
 import plantsService from "../services/plants.services";
-import plantCaresService from "../services/plantCares.services";
+// import careService from "../services/cares.services";
 // import PlantCard from "../components/PlantCard";
 
 const API_URL = "http://localhost:5010";
@@ -45,20 +45,12 @@ function PlantDetailsPage() {
             <p>Family: {plant.family}</p>
             <p><img src={plant.picture_url} alt="this is a plant" /></p>
 
-            <h2>Plant Care Information</h2>
-          {plant.cares && plant.cares.length > 0 ? (
-            plant.cares.map((care) => (
-              <PlantCareCard key={care._id} care={care} />
-            ))
-          ) : (
-            <p>No plant care information available</p>
-          )}
-
           </>
         )}
       </div>
 
-        <AddPlantCare refreshPlant={getPlant} plantId={plantId} />
+      <CareCard plantId={plantId} />
+
 
       <Link to="/plants">
         <button>Back to plants</button>

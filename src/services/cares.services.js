@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class PlantCareService {
+class CareService {
     constructor() {
         this.api = axios.create({
             baseURL: import.meta.env.SERVER_URL || "http://localhost:5010",
@@ -17,24 +17,28 @@ class PlantCareService {
 
     }
 
-    //POST /api/plantcare
-    createPlantcare = (requestBody) => {
-        return this.api.post("/api/plantcare", requestBody);
+    //POST /api/care
+    createCare = (requestBody) => {
+        return this.api.post("/api/care", requestBody);
     };
+
 
     //GET /api/plantcare
-    getPlantCare = (id) => {
-        return this.api.get(`/api/plantcare/${id}`);
+    getAllCares = () => {
+        return this.api.get("/api/care");
+    };
+
+    getCare = (careId) => {
+        return this.api.get(`/api/care/${careId}`);
     };
     
-
     // DELETE /api/plantcare/:id
-    deletePlantCare = (id) => {
-    return this.api.delete(`/api/plantcare/${id}`);
-    };
+    // deletePlantCare = (id) => {
+    // return this.api.delete(`/api/plantcare/${id}`);
+    // };
 }
 
 
-const plantCareService = new PlantCareService();
+const careService = new CareService();
 
-export default plantCareService;
+export default careService;
