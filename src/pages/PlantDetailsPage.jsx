@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-// import CareCard from "../components/CareCard";
+import careService from "../services/cares.services";
 import plantsService from "../services/plants.services";
 
 const API_URL = "http://localhost:5010";
