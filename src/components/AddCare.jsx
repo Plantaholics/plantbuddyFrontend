@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import careService from "../services/cares.services";
 import { useNavigate } from "react-router-dom";
+import { Box, Button, Heading, Input, Select, Text } from "@chakra-ui/react";
 
 function AddCare(props) {
   const [water, setWater] = useState("");
@@ -80,68 +81,90 @@ function AddCare(props) {
   };
 
   return (
-    <div>
-      <h3>How do you take care of it?</h3>
+<Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center">
+      <Box
+        p={{ base: 4, md: 6 }}
+        width="100%"
+        maxWidth="500px"
+        bg="white"
+        shadow="md"
+        borderRadius="md"
+        border="2px solid"
+        borderColor="green.500"
+      >
+        <Heading as="h3" size="md" mb={4} color="green.500">
+          How do you take care of it?
+        </Heading>
+        <form onSubmit={handleFormSubmit}>
+          <Box mb={4}>
+            <Text mb={2}>Water</Text>
+            <Select name="water" value={water} onChange={(e) => setWater(e.target.value)}>
+              <option value="">Select an option</option>
+              <option value="once a day">once a day</option>
+              <option value="once a week">once a week</option>
+              <option value="twice a week">twice a week</option>
+              <option value="once every two weeks">once every two weeks</option>
+              <option value="once a month">once a month</option>
+            </Select>
+          </Box>
 
-      <form onSubmit={handleFormSubmit}>
-        <label>
-          Water
-          <select name="water" value={water} onChange={(e) => setWater(e.target.value)}>
-            <option value="">Select an option</option>
-            <option value="once a day">once a day</option>
-            <option value="once a week">once a week</option>
-            <option value="twice a week">twice a week</option>
-            <option value="once every two weeks">once every two weeks</option>
-            <option value="once a month">once a month</option>
-          </select>
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Fertilization</Text>
+            <Select
+              name="fertilization"
+              value={fertilization}
+              onChange={(e) => setFertilization(e.target.value)}
+            >
+              <option value="">Select an option</option>
+              <option value="every month">every month</option>
+              <option value="every 3 months">every 3 months</option>
+              <option value="every 6 months">every 6 months</option>
+            </Select>
+          </Box>
 
-        <label>
-          Fertilization
-          <select name="fertilization" value={fertilization} onChange={(e) => setFertilization(e.target.value)}>
-            <option value="">Select an option</option>
-            <option value="every month">every month</option>
-            <option value="every 3 months">every 3 months</option>
-            <option value="every 6 months">every 6 months</option>
-          </select>
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Benefits</Text>
+            <Input
+              type="text"
+              name="benefits"
+              value={benefits}
+              onChange={(e) => setBenefits(e.target.value)}
+            />
+          </Box>
 
-        <label>
-          Benefits
-          <input
-            type="text"
-            name="benefits"
-            value={benefits}
-            onChange={(e) => setBenefits(e.target.value)}
-          />
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Sunlight</Text>
+            <Select name="sunlight" value={sunlight} onChange={(e) => setSunlight(e.target.value)}>
+              <option value="">Select an option</option>
+              <option value="morning">morning</option>
+              <option value="midday">midday</option>
+              <option value="afternoon">afternoon</option>
+              <option value="all day">all day</option>
+            </Select>
+          </Box>
 
-        <label>
-          Sunlight
-          <select name="sunlight" value={sunlight} onChange={(e) => setSunlight(e.target.value)}>
-            <option value="">Select an option</option>
-            <option value="morning">morning</option>
-            <option value="midday">midday</option>
-            <option value="afternoon">afternoon</option>
-            <option value="all day">all day</option>
-          </select>
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Preferred area</Text>
+            <Select
+              name="preferred_area"
+              value={preferred_area}
+              onChange={(e) => setPreferredArea(e.target.value)}
+            >
+              <option value="">Select an option</option>
+              <option value="only indoor">only indoor</option>
+              <option value="only outdoor">only outdoor</option>
+              <option value="indoor/outdoor">indoor/outdoor</option>
+              <option value="humid places">humid places</option>
+              <option value="dry places">dry places</option>
+            </Select>
+          </Box>
 
-        <label>
-          Preferred area
-          <select name="preferred_area" value={preferred_area} onChange={(e) => setPreferredArea(e.target.value)}>
-            <option value="">Select an option</option>
-            <option value="only indoor">only indoor</option>
-            <option value="only outdoor">only outdoor</option>
-            <option value="indoor/outdoor">indoor/outdoor</option>
-            <option value="humid places">humid places</option>
-            <option value="dry places">dry places</option>
-          </select>
-        </label>
-
-        <button type="submit">{careId ? "Update care" : "Add care to your buddy"}</button>
-      </form>
-    </div>
+          <Button type="submit" colorScheme="green" width="100%">
+            {careId ? "Update care" : "Add care to your buddy"}
+          </Button>
+        </form>
+      </Box>
+    </Box>
   );
 }
 

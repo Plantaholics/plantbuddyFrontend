@@ -1,7 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { ChakraProvider } from '@chakra-ui/react';
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"
 import HomePage from "./pages/HomePage";
 import PlantListPage from "./pages/PlantListPage";
 import PlantDetailsPage from "./pages/PlantDetailsPage";
@@ -15,6 +17,7 @@ import IsAnon from "./components/IsAnnon";
 function App() {
   return (
     <div>
+      <ChakraProvider>
       <Navbar />
 
       <Routes>
@@ -47,6 +50,8 @@ function App() {
         
         <Route path="/login" element={<LoginPage />}/>
       </Routes>
+      {/* <Footer/> */}
+      </ChakraProvider>
     </div>
   );
 }

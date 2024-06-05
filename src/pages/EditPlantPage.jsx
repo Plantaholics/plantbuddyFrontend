@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import plantsService from "../services/plants.services";
 import caresService from "../services/cares.services";
 import AddCare from "../components/AddCare";
+import { Box, Button, Heading, Input, Select, Text } from "@chakra-ui/react";
 
 const API_URL = "http://localhost:5010";
 
@@ -74,73 +75,89 @@ function EditPlantPage(props) {
   };
 
   return (
-    <div>
-      <h3>Edit your buddy</h3>
+<Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center">
+      <Box
+        p={{ base: 4, md: 6 }}
+        width="100%"
+        maxWidth="500px"
+        bg="white"
+        shadow="md"
+        borderRadius="md"
+        border="2px solid"
+        borderColor="green.500"
+      >
+        <Heading as="h3" size="lg" mb={4} color="green.500">
+          Edit your buddy
+        </Heading>
+        <form onSubmit={handleFormSubmit}>
+          <Box mb={4}>
+            <Text mb={2}>Common name</Text>
+            <Input
+              type="text"
+              name="common_name"
+              value={common_name}
+              onChange={(e) => setCommonName(e.target.value)}
+            />
+          </Box>
 
-      <form onSubmit={handleFormSubmit}>
-        <label>
-          Common name
-          <input
-            type="text"
-            name="common_name"
-            value={common_name}
-            onChange={(e) => setCommonName(e.target.value)}
-          />
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Scientific name</Text>
+            <Input
+              type="text"
+              name="scientific_name"
+              value={scientific_name}
+              onChange={(e) => setScientificName(e.target.value)}
+            />
+          </Box>
 
-        <label>
-          Scientific name
-          <input
-            type="text"
-            name="scientific_name"
-            value={scientific_name}
-            onChange={(e) => setScientificName(e.target.value)}
-          />
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Origin</Text>
+            <Input
+              type="text"
+              name="origin"
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+            />
+          </Box>
 
-        <label>
-          Origin
-          <input
-            type="text"
-            name="origin"
-            value={origin}
-            onChange={(e) => setOrigin(e.target.value)}
-          />
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Family</Text>
+            <Select name="family" value={family} onChange={handleFamilyChange}>
+              <option value="">Pick a family</option>
+              <option value="araceae">araceae</option>
+              <option value="asparagaceae">asparagaceae</option>
+              <option value="polypodiaceae">polypodiaceae</option>
+              <option value="pteridaceae">pteridaceae</option>
+              <option value="dryopteridaceae">dryopteridaceae</option>
+              <option value="asphodelaceae">asphodelaceae</option>
+              <option value="moraceae">moraceae</option>
+              <option value="musaceae">musaceae</option>
+              <option value="asteraceae">asteraceae</option>
+            </Select>
+          </Box>
 
-        <label>
-          Family
-          <select name="family" value={family} onChange={handleFamilyChange}>
-            <option value="">Pick a family</option>
-            <option value="araceae">araceae</option>
-            <option value="asparagaceae">asparagaceae</option>
-            <option value="polypodiaceae">polypodiaceae</option>
-            <option value="pteridaceae">pteridaceae</option>
-            <option value="dryopteridaceae">dryopteridaceae</option>
-            <option value="asphodelaceae">asphodelaceae</option>
-            <option value="moraceae">moraceae</option>
-            <option value="musaceae">musaceae</option>
-            <option value="asteraceae">asteraceae</option>
-          </select>
-        </label>
+          <Box mb={4}>
+            <Text mb={2}>Image</Text>
+            <Input
+              type="text"
+              name="picture_url"
+              value={picture_url}
+              onChange={(e) => setPictureUrl(e.target.value)}
+            />
+          </Box>
 
-        <label>
-          Image
-          <input
-            type="text"
-            name="picture_url"
-            value={picture_url}
-            onChange={(e) => setPictureUrl(e.target.value)}
-          />
-        </label>
+          <Button type="submit" colorScheme="green" mb={4} width="100%">
+            Update Plant
+          </Button>
+        </form>
 
-        <button type="submit">Update Plant</button>
-      </form>
+        <AddCare plantId={plantId} />
 
-      <AddCare plantId={plantId} careId={careId} />
-
-      <button onClick={deletePlant}>Oh no, bye Buddy</button>
-    </div>
+        <Button onClick={deletePlant} colorScheme="red" mt={4} width="100%">
+          Oh no, bye Buddy
+        </Button>
+      </Box>
+    </Box>
   );
 }
 
