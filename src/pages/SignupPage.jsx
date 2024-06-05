@@ -44,11 +44,11 @@ function SignupPage(props) {
       .catch((err) => {
         let errorDescription = "An unexpected error occured";
         if (err.response && EvalError.response.data) {
-          if (err.repsonse.data.message) {
+          if (err.response.data.message) {
             errorDescription = err.response.data.message;
           } else {
             errorDescription =
-              "An error occurred, no message provied by the server";
+              "An error occurred, no message provided by the server";
           }
         } else {
           errorDescription = "No response from the server";

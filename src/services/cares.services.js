@@ -3,7 +3,8 @@ import axios from "axios";
 class CareService {
     constructor() {
         this.api = axios.create({
-            baseURL: import.meta.env.VITE_API_URL || "http://localhost:5010",
+            baseURL: import.meta.env.SERVER_URL || "http://localhost:5010"  //DELETE LINE IS ONLY FOR TESTING
+            // baseURL: import.meta.env.VITE_API_URL || "http://localhost:5010" // THIS IS FOR THE FINAL VERSION UNCOMMENT THIS LINE
         });
 
         this.api.interceptors.request.use((config) => {

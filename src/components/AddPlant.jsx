@@ -1,7 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import plantsService from "../services/plants.services";
-import { Box, Button, FormControl, FormLabel, Input, Select, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Heading,
+  Flex,
+  Center,
+} from "@chakra-ui/react";
 
 const API_URL = "http://localhost:5010";
 
@@ -11,33 +21,17 @@ function AddPlant(props) {
   const [origin, setOrigin] = useState("");
   const [family, setFamily] = useState("");
   const [picture_url, setPictureUrl] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const navigate = useNavigate();
-
-  const handleFileUpload = (e) => {
-    const uploadData = new FormData();
-    uploadData.append("file", e.target.files[0]);
-
-    fileUploadService
-      .uploadImage(uploadData)
-      .then(response => {
-        setPictureUrl(response.fileUrl);
-      })
-      .catch(err => console.log("Error while uploading the file: ", err));
-  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    if (!common_name || !picture_url || typeof origin !== "string" || typeof family !== "string") {
-      setShowPopup(true);
-      return;
-    }
-
-    const requestBody = { common_name, scientific_name, origin, family, picture_url };
+    const requestBody = {
+      common_name,
+      scientific_name,
+      origin,
+      family,
+      picture_url,
+    };
 
     const storedToken = localStorage.getItem("authToken");
 
@@ -50,83 +44,98 @@ function AddPlant(props) {
         setFamily("");
         setPictureUrl("");
         props.refreshPlant();
-        setShowSuccess(true);
       })
-      .catch((err) => console.log(err));
-      setShowError(true);
+      .catch((err) => {
+        setErrorMessage("Error: Unable to add plant. Please try again later."); // Mensaje de error genérico
+        console.error("Error adding plant:", err); // Imprimir el error en la consola para depuración
+      });
   };
 
   const handleChange = (e) => {
     e.preventDefault();
-    setFamily(String(e.target.value));
+    setFamily(e.target.value);
   };
 
   return (
-    <Box p={6} bg="white" shadow="md" borderRadius="md" w="full" maxW="md">
-      <Heading as="h3" size="lg" mb={4} color="green.500">
-        Add new Buddy
-      </Heading>
+    <Flex flexDir="column" align="center" mt={10} alignContent={"center"}>
+      <Box textAlign={"center"} mb={7}>
+        <Heading fontSize={30} color="#38a169">Add new Plantbuddy</Heading>
+      </Box>
 
-      <form onSubmit={handleFormSubmit}>
-        <FormControl>
-          <FormLabel>Common name</FormLabel>
-          <Input type="text" name="common_name" value={common_name} onChange={(e) => setCommonName(e.target.value)} required />
-        </FormControl>
+      <form onSubmit={handleFormSubmit} style={{ width: "400px" }}>
+        <Box display="block" flexDirection="column" align={"center"} borderWidth="2px" pb={5} borderRadius={"lg"} borderColor={"#38a169"}>
+          <FormControl isRequired>
+            <FormLabel textAlign="center" mt={2}>Common name</FormLabel>
+            <Input
+              width={300}
+              type="text"
+              name="common_name"
+              value={common_name}
+              onChange={(e) => setCommonName(e.target.value)}
+            />
+          </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Scientific name</FormLabel>
-          <Input type="text" name="scientific_name" value={scientific_name} onChange={(e) => setScientificName(e.target.value)} />
-        </FormControl>
+          <FormControl>
+            <FormLabel textAlign="center" mt={2}>Scientific name</FormLabel>
+            <Input
+              width={300}
+              type="text"
+              name="scientific_name"
+              value={scientific_name}
+              onChange={(e) => setScientificName(e.target.value)}
+            />
+          </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Origin</FormLabel>
-          <Input type="text" name="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} />
-        </FormControl>
+          <FormControl>
+            <FormLabel textAlign="center" mt={2}>Origin</FormLabel>
+            <Input
+              width={300}
+              type="text"
+              name="origin"
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+            />
+          </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Family</FormLabel>
-          <Select name="family" value={family} onChange={handleChange}>
-            <option value="">Pick a family</option>
-            <option value="araceae">araceae</option>
-            <option value="asparagaceae">asparagaceae</option>
-            <option value="polypodiaceae">polypodiaceae</option>
-            <option value="pteridaceae">pteridaceae</option>
-            <option value="dryopteridaceae">dryopteridaceae</option>
-            <option value="asphodelaceae">asphodelaceae</option>
-            <option value="moraceae">moraceae</option>
-            <option value="musaceae">musaceae</option>
-            <option value="asteraceae">asteraceae</option>
-          </Select>
-        </FormControl>
+          <FormControl>
+            <FormLabel textAlign="center" mt={2}>Family</FormLabel>
+            <Select
+              textAlign={"center"}
+              name="family"
+              value={family}
+              onChange={handleChange}
+              width={300}
+            >
+              <option value="">Pick a family</option>
+              <option value="araceae">araceae</option>
+              <option value="asparagaceae">asparagaceae</option>
+              <option value="polypodiaceae">polypodiaceae</option>
+              <option value="pteridaceae">pteridaceae</option>
+              <option value="dryopteridaceae">dryopteridaceae</option>
+              <option value="asphodelaceae">asphodelaceae</option>
+              <option value="moraceae">moraceae</option>
+              <option value="musaceae">musaceae</option>
+              <option value="asteraceae">asteraceae</option>
+            </Select>
+          </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Image</FormLabel>
-          <Input type="text" name="picture_url" value={picture_url} onChange={(e) => setPictureUrl(e.target.value)} required />
-        </FormControl>
+          <FormControl isRequired>
+            <FormLabel textAlign="center" mt={2}>Image</FormLabel>
+            <Input
+              width={300}
+              type="text"
+              name="picture_url"
+              value={picture_url}
+              onChange={(e) => setPictureUrl(e.target.value)}
+            />
+          </FormControl>
 
-        <Button type="submit" mt={4} colorScheme="green">
-          Submit
-        </Button>
+          <Button type="submit" colorScheme="green" mt={4} width={250}>
+            Submit
+          </Button>
+        </Box>
       </form>
-
-      {/* Popup message */}
-      {showPopup && (
-        <Text mt={2} color="red.500">
-          Please fill in all required fields.
-        </Text>
-      )}
-            {/* Success message */}
-            {showSuccess && (
-        <Text mt={2} color="green.500">
-          Buddy successfully added!
-        </Text>
-      )}
-            {showError && (
-        <Text mt={2} color="red.500">
-          Error while adding the new buddy.
-        </Text>
-      )}
-    </Box>
+    </Flex>
   );
 }
 

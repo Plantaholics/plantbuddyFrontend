@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import plantbuddylogo from "../assets/plantbuddylogo.svg";
+import { color } from "framer-motion";
 
 function Navbar() {
   const auth = localStorage.getItem("authToken");
@@ -22,16 +23,17 @@ function Navbar() {
           <img width="150px" src={plantbuddylogo} alt="" />
         </Link>
 
+        
         <Flex align="center">
           <Link to="/">
-            <Button variant="ghost" colorScheme="white" mr={4} color="#fff">
+            <Button variant="ghost" colorScheme="white" mr={4} color="#fff" _hover={{bg: "green.800"}}>
               Home
             </Button>
           </Link>
 
           {auth && (
             <Link to="/plants">
-              <Button variant="ghost" colorScheme="white" mr={4} color="#fff">
+              <Button variant="ghost" colorScheme="white" mr={4} color="#fff" _hover={{bg: "green.800"}}>
                 Plants
               </Button>
             </Link>
@@ -39,7 +41,7 @@ function Navbar() {
 
           {!auth && (
             <Link to="/signup">
-              <Button variant="ghost" colorScheme="white" mr={4} color="#fff">
+              <Button variant="ghost" colorScheme="white" mr={4} color="#fff" _hover={{bg: "green.800"}}>
                 Join us
               </Button>
             </Link>
@@ -47,7 +49,7 @@ function Navbar() {
 
           {auth ? (
             <Link onClick={logout} to="/">
-              <Button variant="ghost" colorScheme="white" mr={4} color="#fff">
+              <Button variant="ghost" colorScheme="white" mr={4} color="#fff" _hover={{bg: "green.800"}}>
                 Log out
               </Button>
             </Link>

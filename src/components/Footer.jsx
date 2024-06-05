@@ -4,22 +4,13 @@ import pottery from "../assets/pottery.svg"
 
 function Footer() {
   return (
-    <Box as="footer" py={3} bg="#fe8e46" color="green.600" fontWeight="600" position="fixed" bottom="0" width="100%" mt="50px">
+    <Box as="footer" py={3} bg="#724b21" color="#fff" fontWeight="600" position="fixed" bottom="0" width="100%" mt="50px">
       <Flex justify="center" align="center" direction="column">
-        <Flex align="center" mb={2}>
-        <Image src={pottery} alt="Pottery Logo" boxSize={6} />
-          <Text ml={2}>Developed by Raffaella and Sergio 2024 </Text>
-        </Flex>
         <Flex>
-        <Image src={github} alt="GitHub Logo" boxSize={6} />
-          <Link href="https://github.com/raffaellacff" isExternal mx={2}>
-            Raffaella's GitHub
-          </Link>
+        <Text mx={2}>Check out our code on:</Text>
+        <Image src={github} alt="GitHub Logo" boxSize={6} mx={5}/>
           <Link href="https://github.com/orgs/Plantaholics/repositories" isExternal mx={2}>
             Plantholic's GitHub
-          </Link>
-          <Link href="https://github.com/sergiovede26" isExternal mx={2}>
-            Sergio's GitHub
           </Link>
         </Flex>
       </Flex>

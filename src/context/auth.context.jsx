@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "http//localhost:5010";
+const API_URL = "http://localhost:5010";
 
 import authService from "../services/auth.services";
 
@@ -36,6 +36,7 @@ function AuthProviderWrapper(props) {
                 setIsLoggedIn(false);
                 setIsLoading(false);
                 setUser(null);
+                console.error("this is an error", error)
              }); 
         } else {
             //if the token is not available
