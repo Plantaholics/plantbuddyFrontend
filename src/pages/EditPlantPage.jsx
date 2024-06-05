@@ -75,7 +75,7 @@ function EditPlantPage(props) {
   };
 
   return (
-<Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center">
+<Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center" maxH={"200vh"} mb={"50px"}>
       <Box
         p={{ base: 4, md: 6 }}
         width="100%"
@@ -151,7 +151,7 @@ function EditPlantPage(props) {
           </Button>
         </form>
 
-        <AddCare plantId={plantId} />
+        <AddCare plantId={plantId} careId={careId}/>
 
         <Button onClick={deletePlant} colorScheme="red" mt={4} width="100%">
           Oh no, bye Buddy

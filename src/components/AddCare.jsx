@@ -19,6 +19,7 @@ function AddCare(props) {
       // Fetch the existing care details if careId is provided
       careService
         .getCare(careId)
+        console.log("careId", careId)
         .then((response) => {
           const care = response.data;
           setWater(care.water);
@@ -57,7 +58,7 @@ function AddCare(props) {
           if (props.refreshPlant) {
             props.refreshPlant();
           }
-          navigate(`/plants/${plantId}`);
+          navigate(`/plants/edit/${plantId}`);
         })
         .catch((err) => console.log(err));
     } else {
@@ -123,7 +124,7 @@ function AddCare(props) {
           </Box>
 
           <Box mb={4}>
-            <Text mb={2}>Benefits</Text>
+            <Text mb={2}>Recomendations</Text>
             <Input
               type="text"
               name="benefits"

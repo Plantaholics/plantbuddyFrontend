@@ -29,7 +29,7 @@ function PlantDetailsPage() {
 
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh" bg="gray.50" p={4}>
-    <Box p={6} bg="white" shadow="md" borderRadius="md" w="full" maxW="2xl">
+    <Box p={6} bg="white" shadow="md" borderWidth="2px" pb={5} borderRadius={"lg"} borderColor={"#38a169"} w="full" maxW="2xl">
       {plant ? (
         <>
           <Heading as="h1" size="xl" mb={4} textAlign="center">
