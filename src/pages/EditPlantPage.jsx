@@ -240,11 +240,7 @@ function EditPlantPage(props) {
           </AlertDialogOverlay>
         </AlertDialog>
       </Box>
-      {errorMessage && (
-          <Box mb={4} color="red.500">
-            <Text>{errorMessage}</Text>
-          </Box>
-        )}
+
         {successMessage && (
           <Box mb={4} color="green.500">
             <Text>{successMessage}</Text>
