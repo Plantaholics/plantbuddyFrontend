@@ -11,7 +11,7 @@ import {
   Heading,
   Input,
   Text,
-  VStack,
+  VStack, useToast
 } from "@chakra-ui/react";
 import backgroundsignup from "../assets/backgroundsignup.png";
 
@@ -24,6 +24,7 @@ function SignupPage(props) {
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
+  const toast = useToast();
 
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
@@ -40,12 +41,21 @@ function SignupPage(props) {
       .signup(requestBody)
       .then((response) => {
         navigate("/login");
+        toast({
+          title: "Signup successful", 
+          description: "Congrats! You are all signed up.", 
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        })
       })
       .catch((err) => {
         let errorDescription = "An unexpected error occured";
-        if (err.response && EvalError.response.data) {
+        if (err.response && err.response.data) {
           if (err.response.data.message) {
             errorDescription = err.response.data.message;
+          } else if (err.response.status === 409) { // User already exists
+            errorDescription = "This user is already a Plantbuddy. Please try another one!";
           } else {
             errorDescription =
               "An error occurred, no message provided by the server";
@@ -53,6 +63,7 @@ function SignupPage(props) {
         } else {
           errorDescription = "No response from the server";
         }
+        setErrorMessage(errorDescription);
       });
   };
 
@@ -132,7 +143,7 @@ function SignupPage(props) {
             {errorMessage}
           </Text>
         )}
-
+   
         <Text mt={6} textAlign="center" color="green.900">
           Already a Plantbuddy?
         </Text>

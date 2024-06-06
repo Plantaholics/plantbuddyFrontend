@@ -23,16 +23,7 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={<HomePage />} />
-        <Route
-          exact
-          path="/plants"
-          element={
-            <IsPrivate>
-              {" "}
-              <PlantListPage />{" "}
-            </IsPrivate>
-          }
-        />
+        <Route exact path="/plants" element={<PlantListPage />} />
         <Route
           exact
           path="/plants/:plantId"

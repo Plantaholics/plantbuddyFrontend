@@ -1,24 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-const API_URL = "http://localhost:5010";
-
 import authService from "../services/auth.services";
 
+// Define AuthContext only once, outside any function
 const AuthContext = React.createContext();
 
 function AuthProviderWrapper(props) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-    const storeToken = (token) => {
-        localStorage.setItem("authToken", token);
-    };
-
-    //
-
+  const storeToken = (token) => {
+    localStorage.setItem("authToken", token);
+  };
     const authenticateUser = () => {
         //getting the storedToken from the localStorage
         const storedToken = localStorage.getItem("authToken");
@@ -45,7 +40,6 @@ function AuthProviderWrapper(props) {
             setUser(null);
         }
     };
-
 
     const removeToken = () => {
         localStorage.removeItem("authToken");

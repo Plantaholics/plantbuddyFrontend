@@ -1,9 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import plantsService from "../services/plants.services";
-import caresService from "../services/cares.services";
 import AddCare from "../components/AddCare";
-import { Box, Button, Heading, Input, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  Select,
+  Text,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,useToast
+} from "@chakra-ui/react";
 
 const API_URL = "http://localhost:5010";
 
@@ -14,15 +26,18 @@ function EditPlantPage(props) {
   const [family, setFamily] = useState("");
   const [picture_url, setPictureUrl] = useState("");
   const [careId, setCareId] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const cancelRef = useRef();
 
   const { plantId } = useParams();
   const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
 
-    // plant data from the API
-
+    // Fetch plant data from the API
     plantsService
       .getPlant(plantId, storedToken)
       .then((response) => {
@@ -35,12 +50,18 @@ function EditPlantPage(props) {
 
         if (onePlant.care) {
           setCareId(onePlant.care._id);
-          console.log("careId", onePlant.care._id);
         }
       })
-      .catch((err) => console.log(err));
-  }, [plantId]);
-
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: "Error fetching plant data. Please try again later.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  }, [plantId, toast]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -56,9 +77,23 @@ function EditPlantPage(props) {
     plantsService
       .updatePlant(plantId, requestBody)
       .then((response) => {
-        navigate(`/plants/${plantId}`);
+        setSuccessMessage("Plantbuddy updated successfully!");
+        setErrorMessage("");
+        // Optionally navigate after a delay to show the success message
+        setTimeout(() => {
+          navigate(`/plants/${plantId}`);
+        }, 2000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: "Error",
+          description: "Error updating plantbuddy.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   };
 
   const deletePlant = () => {
@@ -67,7 +102,29 @@ function EditPlantPage(props) {
       .then(() => {
         navigate("/plants");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: "Error",
+          description: "Error deleting plantbuddy.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const handleDeleteClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    setIsDeleteDialogOpen(false);
+    deletePlant();
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeleteDialogOpen(false);
   };
 
   const handleFamilyChange = (e) => {
@@ -75,7 +132,7 @@ function EditPlantPage(props) {
   };
 
   return (
-<Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center" maxH={"200vh"} mb={"50px"}>
+    <Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center" maxH={"200vh"} mb={"50px"}>
       <Box
         p={{ base: 4, md: 6 }}
         width="100%"
@@ -145,18 +202,54 @@ function EditPlantPage(props) {
               onChange={(e) => setPictureUrl(e.target.value)}
             />
           </Box>
-
           <Button type="submit" colorScheme="green" mb={4} width="100%">
             Update Plant
           </Button>
         </form>
 
-        <AddCare plantId={plantId} careId={careId}/>
+        <AddCare plantId={plantId} careId={careId} />
 
-        <Button onClick={deletePlant} colorScheme="red" mt={4} width="100%">
+        <Button onClick={handleDeleteClick} colorScheme="red" mt={4} width="100%">
           Oh no, bye Buddy
         </Button>
+
+        <AlertDialog
+          isOpen={isDeleteDialogOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={handleDeleteCancel}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Delete Plant
+              </AlertDialogHeader>
+
+              <AlertDialogBody>
+                Are you sure you want to delete your plant buddy?
+              </AlertDialogBody>
+
+              <AlertDialogFooter>
+                <Button ref={cancelRef} onClick={handleDeleteCancel}>
+                  Cancel
+                </Button>
+                <Button colorScheme="red" onClick={handleDeleteConfirm} ml={3}>
+                  Delete
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
       </Box>
+      {errorMessage && (
+          <Box mb={4} color="red.500">
+            <Text>{errorMessage}</Text>
+          </Box>
+        )}
+        {successMessage && (
+          <Box mb={4} color="green.500">
+            <Text>{successMessage}</Text>
+          </Box>
+        )}
     </Box>
   );
 }

@@ -17,7 +17,8 @@ class PlantsService {
 
     }
 
-    //POST /api/plants
+
+    //POST api/plants
     createPlant = (requestBody) => {
         return this.api.post("/api/plants", requestBody);
     };

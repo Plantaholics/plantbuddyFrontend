@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Image, Text } from '@chakra-ui/react';
 
@@ -9,6 +10,8 @@ function PlantCard({ plant }) {
   const handleClick = () => {
     navigate(`/plants/${plant._id}`);
   }
+
+  const { isLoggedIn } = useContext(AuthContext);
   
   return (
     <Box m={{ base: "2", md: "2", lg: "6" }} maxW="md" height="500px" borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
@@ -31,9 +34,11 @@ function PlantCard({ plant }) {
 
         <Image mt="4" width="225px" height="225px" borderRadius="10px" src={plant.picture_url} alt="Plant" />
 
+        { isLoggedIn &&
         <Button mt="4" onClick={handleClick} colorScheme="green" variant="solid" >
           View more
         </Button>
+        }
       </Box>
     </Box>
   );
