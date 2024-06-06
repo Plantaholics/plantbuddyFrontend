@@ -8,8 +8,9 @@ import PlantDetailsPage from "./pages/PlantDetailsPage";
 import EditPlantPage from "./pages/EditPlantPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import Footer from "./components/Footer";
+import theme from "../src/theme";
 
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnnon";
@@ -18,7 +19,8 @@ function App() {
   return (
     <div>
 
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Navbar />
 
       <Routes>

@@ -3,7 +3,8 @@ import axios from "axios";
 class PlantsService {
     constructor() {
         this.api = axios.create({
-            baseURL: import.meta.env.VITE_API_URL || "http://localhost:5010" // THIS IS FOR THE FINAL VERSION 
+            baseURL: import.meta.env.SERVER_URL || "http://localhost:5010",
+            // baseURL: import.meta.env.VITE_API_URL || "http://localhost:5010" // THIS IS FOR THE FINAL VERSION 
         });
 
         this.api.interceptors.request.use((config) => {
@@ -17,10 +18,11 @@ class PlantsService {
 
     }
 
-
     //POST api/plants
-    createPlant = (requestBody) => {
-        return this.api.post("/api/plants", requestBody);
+    createPlant = async (requestBody) => {
+        const response = await this.api.post("/api/plants", requestBody);
+        console.log(response.data);
+        return response.data;
     };
 
     //Get /api/plants

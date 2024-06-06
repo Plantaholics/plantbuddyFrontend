@@ -16,9 +16,7 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,useToast
 } from "@chakra-ui/react";
-
 const API_URL = "http://localhost:5010";
-
 function EditPlantPage(props) {
   const [common_name, setCommonName] = useState("");
   const [scientific_name, setScientificName] = useState("");
@@ -29,14 +27,11 @@ function EditPlantPage(props) {
   const [successMessage, setSuccessMessage] = useState("");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const cancelRef = useRef();
-
   const { plantId } = useParams();
   const navigate = useNavigate();
   const toast = useToast();
-
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
-
     // Fetch plant data from the API
     plantsService
       .getPlant(plantId, storedToken)
@@ -47,7 +42,6 @@ function EditPlantPage(props) {
         setOrigin(onePlant.origin);
         setFamily(onePlant.family);
         setPictureUrl(onePlant.picture_url);
-
         if (onePlant.care) {
           setCareId(onePlant.care._id);
         }
@@ -62,7 +56,6 @@ function EditPlantPage(props) {
         });
       });
   }, [plantId, toast]);
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const requestBody = {
@@ -72,7 +65,6 @@ function EditPlantPage(props) {
       family,
       picture_url,
     };
-
     // Update the plant using plantsService
     plantsService
       .updatePlant(plantId, requestBody)
@@ -95,7 +87,6 @@ function EditPlantPage(props) {
         });
       });
   };
-
   const deletePlant = () => {
     plantsService
       .deletePlant(plantId)
@@ -113,24 +104,19 @@ function EditPlantPage(props) {
         });
       });
   };
-
   const handleDeleteClick = () => {
     setIsDeleteDialogOpen(true);
   };
-
   const handleDeleteConfirm = () => {
     setIsDeleteDialogOpen(false);
     deletePlant();
   };
-
   const handleDeleteCancel = () => {
     setIsDeleteDialogOpen(false);
   };
-
   const handleFamilyChange = (e) => {
     setFamily(e.target.value);
   };
-
   return (
     <Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center" maxH={"200vh"} mb={"50px"}>
       <Box
@@ -156,7 +142,6 @@ function EditPlantPage(props) {
               onChange={(e) => setCommonName(e.target.value)}
             />
           </Box>
-
           <Box mb={4}>
             <Text mb={2}>Scientific name</Text>
             <Input
@@ -166,7 +151,6 @@ function EditPlantPage(props) {
               onChange={(e) => setScientificName(e.target.value)}
             />
           </Box>
-
           <Box mb={4}>
             <Text mb={2}>Origin</Text>
             <Input
@@ -176,7 +160,6 @@ function EditPlantPage(props) {
               onChange={(e) => setOrigin(e.target.value)}
             />
           </Box>
-
           <Box mb={4}>
             <Text mb={2}>Family</Text>
             <Select name="family" value={family} onChange={handleFamilyChange}>
@@ -192,7 +175,6 @@ function EditPlantPage(props) {
               <option value="asteraceae">asteraceae</option>
             </Select>
           </Box>
-
           <Box mb={4}>
             <Text mb={2}>Image</Text>
             <Input
@@ -206,13 +188,10 @@ function EditPlantPage(props) {
             Update Plant
           </Button>
         </form>
-
         <AddCare plantId={plantId} careId={careId} />
-
         <Button onClick={handleDeleteClick} colorScheme="red" mt={4} width="100%">
           Oh no, bye Buddy
         </Button>
-
         <AlertDialog
           isOpen={isDeleteDialogOpen}
           leastDestructiveRef={cancelRef}
@@ -223,11 +202,9 @@ function EditPlantPage(props) {
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 Delete Plant
               </AlertDialogHeader>
-
               <AlertDialogBody>
                 Are you sure you want to delete your plant buddy?
               </AlertDialogBody>
-
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={handleDeleteCancel}>
                   Cancel
@@ -240,7 +217,6 @@ function EditPlantPage(props) {
           </AlertDialogOverlay>
         </AlertDialog>
       </Box>
-
         {successMessage && (
           <Box mb={4} color="green.500">
             <Text>{successMessage}</Text>

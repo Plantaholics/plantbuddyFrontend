@@ -49,46 +49,51 @@ function AddPlant(props) {
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  // Función para validar el tipo de dato de una variable
+const isString = (value) => {
+  return typeof value === "string";
+};
 
-    if (
-      !common_name ||
-      !imageUrl ||
-      typeof origin !== "string" ||
-      typeof family !== "string"
-    ) {
-      setShowPopup(true);
-      return;
-    }
+const handleFormSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const requestBody = {
-        common_name,
-        scientific_name,
-        origin,
-        family,
-        picture_url: imageUrl, // Assuming upload response has filename
-      };
+  // // Validar campos requeridos y tipos de datos
+  // if (!common_name || !imageUrl || !isString(origin) || !isString(family)) {
+  //   setShowPopup(true);
+  //   return;
+  // }
 
-      await plantsService.createPlant(requestBody);
-      setCommonName("");
-      setScientificName("");
-      setOrigin("");
-      setFamily("");
-      setImageUrl("");
-      props.refreshPlant();
-      setShowSuccess(true);
-    } catch (err) {
-      setErrorMessage("Error: Unable to add plant. Please try again later."); // Generic error message
-      console.error("Error adding plant:", err);
-      setShowError(true);
-    }
-  };
+  try {
+    const requestBody = {
+      common_name,
+      scientific_name,
+      origin,
+      family,
+      picture_url: imageUrl, // Assuming upload response has filename
+    };
 
-  const handleChange = (e) => {
-    setFamily(e.target.value);
-  };
+    await plantsService.createPlant(requestBody);
+
+    // Reset form fields and show success message
+    setCommonName("");
+    setScientificName("");
+    setOrigin("");
+    setFamily("");
+    setImageUrl("");
+    props.refreshPlant();
+    setShowSuccess(true);
+  } catch (err) {
+    // Handle plant creation error
+    setErrorMessage("Error: Unable to add plant. Please try again later."); // Generic error message
+    console.error("Error adding plant:", err);
+    setShowError(true);
+  }
+};
+
+const handleChange = (e) => {
+  setFamily(e.target.value);
+};
+  
 
   return (
     <Flex flexDir="column" align="center" mt={10} alignContent={"center"}>

@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, useColorMode } from "@chakra-ui/react";
 import plantbuddylogo from "../assets/plantbuddylogo.svg";
 import { color } from "framer-motion";
 
 function Navbar() {
+  const { colorMode, toggleColorMode } = useColorMode();
   const auth = localStorage.getItem("authToken");
   const navigate = useNavigate();
 
@@ -87,6 +88,9 @@ function Navbar() {
               </Button>
             </Link>
           )}
+         <Button onClick={toggleColorMode}>
+        {colorMode === "light" ? "Dark" : "Light"} Mode
+      </Button>
         </Flex>
       </Flex>
     </Box>
