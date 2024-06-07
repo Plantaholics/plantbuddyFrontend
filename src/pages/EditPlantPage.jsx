@@ -31,9 +31,13 @@ function EditPlantPage(props) {
   const { plantId } = useParams();
   const navigate = useNavigate();
   const toast = useToast();
+  // Define storedToken in the component's scope
+  const storedToken = localStorage.getItem("authToken");
+
   useEffect(() => {
-    const storedToken = localStorage.getItem("authToken");
+  const storedToken = localStorage.getItem("authToken");
     // Fetch plant data from the API
+
     plantsService
       .getPlant(plantId, storedToken)
       .then((response) => {
@@ -68,24 +72,33 @@ function EditPlantPage(props) {
     };
     // Update the plant using plantsService
     plantsService
-      .updatePlant(plantId, requestBody)
-      .then((response) => {
-        setSuccessMessage("Plantbuddy updated successfully!");
-        setErrorMessage("");
-        // Optionally navigate after a delay to show the success message
-        setTimeout(() => {
-          navigate(`/plants/${plantId}`);
-        }, 2000);
-      })
-      .catch((err) => {
-        console.log(err);
+    .updatePlant(plantId, requestBody, storedToken)
+    .then((response) => {
+      setSuccessMessage("Plantbuddy updated successfully!");
+      setErrorMessage("");
+      // Optionally navigate after a delay to show the success message
+      setTimeout(() => {
+        navigate(`/plants/${plantId}`);
+      }, 2000);
+    })
+    .catch((err) => {
+      if (err.response && err.response.status === 403) {
         toast({
           title: "Error",
-          description: "Error updating plantbuddy.",
+          description: "You can't edit this plant.",
           status: "error",
           duration: 5000,
           isClosable: true,
         });
+      } else {
+        toast({
+          title: "Error",
+          description: "Error updating plantbuddy. Please try again later.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
       });
   };
   const deletePlant = () => {
