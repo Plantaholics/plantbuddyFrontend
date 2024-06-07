@@ -44,7 +44,7 @@ function AddPlant(props) {
       .then((response) => {
         console.log("response is: ", response);
         // response carries "fileUrl" which we can use to update the state
-        setImageUrl(response.fileUrl);
+        setImageUrl(response.data.fileUrl);
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
@@ -82,8 +82,7 @@ function AddPlant(props) {
       props.refreshPlant();
       setShowSuccess(true);
     } catch (err) {
-      // Handle plant creation error
-      setErrorMessage("Error: Unable to add plant. Please try again later."); // Generic error message
+      setErrorMessage("Error: Unable to add plant. Please try again later."); 
       console.error("Error adding plant:", err);
       setShowError(true);
     }
