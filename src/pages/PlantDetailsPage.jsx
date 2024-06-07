@@ -88,7 +88,7 @@ function PlantDetailsPage() {
           <Text textAlign="center">Loading plant details...</Text>
         )}
       </Box>
-      <Flex mt={6} w="full" maxW="2xl" justify="space-between">
+      <Flex mt={6} w="full" maxW="2xl" justify="space-between" mb={10}>
         <Link to="/plants">
           <Button colorScheme="green">Back to plants</Button>
         </Link>
