@@ -74,8 +74,6 @@ function EditPlantPage(props) {
     plantsService
     .updatePlant(plantId, requestBody, storedToken)
     .then((response) => {
-      setSuccessMessage("Plantbuddy updated successfully!");
-      setErrorMessage("");
       // Optionally navigate after a delay to show the success message
       setTimeout(() => {
         navigate(`/plants/${plantId}`);
@@ -92,9 +90,9 @@ function EditPlantPage(props) {
         });
       } else {
         toast({
-          title: "Error",
-          description: "Error updating plantbuddy. Please try again later.",
-          status: "error",
+          title: "Success",
+          description: "Success updating plantbuddy!",
+          status: "success",
           duration: 5000,
           isClosable: true,
         });
