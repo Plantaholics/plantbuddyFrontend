@@ -4,12 +4,10 @@ import { Link } from "react-router-dom";
 import { Box, Heading, Text, Button } from "@chakra-ui/react";
 import backgroundhp from "../assets/backgroundhp.png";
 
-
 function HomePage() {
-
   const { isLoggedIn } = useContext(AuthContext);
-    return (
-      <Box
+  return (
+    <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -19,13 +17,13 @@ function HomePage() {
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
     >
-      <Link to={ isLoggedIn? "/plants" : "/signup"}>
-      <Button mt={50} p={5} colorScheme="green" _hover={{ bg: "green.800" }}>
-      {isLoggedIn ? "Add a Plantbuddy !" : "Start Here!"}
-      </Button>
+      <Link to={isLoggedIn ? "/plants" : "/signup"}>
+        <Button mt={50} p={5} colorScheme="green" _hover={{ bg: "green.800" }}>
+          {isLoggedIn ? "Add a Plantbuddy !" : "Start Here!"}
+        </Button>
       </Link>
     </Box>
-    );
+  );
 }
 
 export default HomePage;

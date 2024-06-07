@@ -14,7 +14,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogContent,
-  AlertDialogOverlay,useToast
+  AlertDialogOverlay,
+  useToast,
 } from "@chakra-ui/react";
 const API_URL = "http://localhost:5010";
 function EditPlantPage(props) {
@@ -118,7 +119,13 @@ function EditPlantPage(props) {
     setFamily(e.target.value);
   };
   return (
-    <Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center" maxH={"200vh"} mb={"50px"}>
+    <Box
+      p={{ base: 4, md: 6 }}
+      display="flex"
+      justifyContent="center"
+      maxH={"200vh"}
+      mb={"50px"}
+    >
       <Box
         p={{ base: 4, md: 6 }}
         width="100%"
@@ -189,7 +196,12 @@ function EditPlantPage(props) {
           </Button>
         </form>
         <AddCare plantId={plantId} careId={careId} />
-        <Button onClick={handleDeleteClick} colorScheme="red" mt={4} width="100%">
+        <Button
+          onClick={handleDeleteClick}
+          colorScheme="red"
+          mt={4}
+          width="100%"
+        >
           Oh no, bye Buddy
         </Button>
         <AlertDialog
@@ -217,11 +229,11 @@ function EditPlantPage(props) {
           </AlertDialogOverlay>
         </AlertDialog>
       </Box>
-        {successMessage && (
-          <Box mb={4} color="green.500">
-            <Text>{successMessage}</Text>
-          </Box>
-        )}
+      {successMessage && (
+        <Box mb={4} color="green.500">
+          <Text>{successMessage}</Text>
+        </Box>
+      )}
     </Box>
   );
 }

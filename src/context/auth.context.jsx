@@ -14,60 +14,61 @@ function AuthProviderWrapper(props) {
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
   };
-    const authenticateUser = () => {
-        //getting the storedToken from the localStorage
-        const storedToken = localStorage.getItem("authToken");
-        
-        //if the token exist...
-        if(storedToken) {
-            authService.verify()
-             .then((response) => {
-                const user = response.data;
-                setIsLoggedIn(true);
-                setIsLoading(false);
-                setUser(null);
-             })
-             .catch((error) => {
-                setIsLoggedIn(false);
-                setIsLoading(false);
-                setUser(null);
-                console.error("this is an error", error)
-             }); 
-        } else {
-            //if the token is not available
-            setIsLoggedIn(false);
-            setIsLoading(false);
-            setUser(null);
-        }
-    };
+  const authenticateUser = () => {
+    //getting the storedToken from the localStorage
+    const storedToken = localStorage.getItem("authToken");
 
-    const removeToken = () => {
-        localStorage.removeItem("authToken");
-    };
+    //if the token exist...
+    if (storedToken) {
+      authService
+        .verify()
+        .then((response) => {
+          const user = response.data;
+          setIsLoggedIn(true);
+          setIsLoading(false);
+          setUser(null);
+        })
+        .catch((error) => {
+          setIsLoggedIn(false);
+          setIsLoading(false);
+          setUser(null);
+          console.error("this is an error", error);
+        });
+    } else {
+      //if the token is not available
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      setUser(null);
+    }
+  };
 
-    const logOutUser = () => {
-        removeToken();
-        authenticateUser();
-    };
+  const removeToken = () => {
+    localStorage.removeItem("authToken");
+  };
 
-    useEffect(() => {
-        authenticateUser();
-    }, []);
+  const logOutUser = () => {
+    removeToken();
+    authenticateUser();
+  };
 
-    return (
-        <AuthContext.Provider
-         value= {{
-            isLoggedIn,
-            isLoading,
-            user,
-            storeToken,
-            authenticateUser,
-            logOutUser
-         }}
-        >
-            {props.children}
-        </AuthContext.Provider>
-    );
+  useEffect(() => {
+    authenticateUser();
+  }, []);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isLoading,
+        user,
+        storeToken,
+        authenticateUser,
+        logOutUser,
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
 }
 
 export { AuthProviderWrapper, AuthContext };

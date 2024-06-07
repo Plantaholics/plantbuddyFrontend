@@ -15,8 +15,7 @@ function Navbar() {
 
   const goToHome = () => {
     navigate("/");
-  }
-;
+  };
   return (
     <Box>
       <Flex align="center" justify="space-between" py={6} px={8} bg="green.500">
@@ -88,9 +87,9 @@ function Navbar() {
               </Button>
             </Link>
           )}
-         <Button onClick={toggleColorMode}>
-        {colorMode === "light" ? "Dark" : "Light"} Mode
-      </Button>
+          <Button onClick={toggleColorMode}>
+            {colorMode === "light" ? "Dark" : "Light"} Mode
+          </Button>
         </Flex>
       </Flex>
     </Box>

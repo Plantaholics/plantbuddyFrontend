@@ -14,7 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5010" // THIS IS FOR THE FINAL VERSION
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5010"; // THIS IS FOR THE FINAL VERSION
 
 function AddPlant(props) {
   const [common_name, setCommonName] = useState("");
@@ -50,50 +50,48 @@ function AddPlant(props) {
   };
 
   // Función para validar el tipo de dato de una variable
-const isString = (value) => {
-  return typeof value === "string";
-};
+  const isString = (value) => {
+    return typeof value === "string";
+  };
 
-const handleFormSubmit = async (e) => {
-  e.preventDefault();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
 
-  // // Validar campos requeridos y tipos de datos
-  // if (!common_name || !imageUrl || !isString(origin) || !isString(family)) {
-  //   setShowPopup(true);
-  //   return;
-  // }
+    // if (!common_name || !imageUrl || !isString(origin) || !isString(family)) {
+    //   setShowPopup(true);
+    //   return;
+    // }
 
-  try {
-    const requestBody = {
-      common_name,
-      scientific_name,
-      origin,
-      family,
-      picture_url: imageUrl, // Assuming upload response has filename
-    };
+    try {
+      const requestBody = {
+        common_name,
+        scientific_name,
+        origin,
+        family,
+        picture_url: imageUrl, // Assuming upload response has filename
+      };
 
-    await plantsService.createPlant(requestBody);
+      await plantsService.createPlant(requestBody);
 
-    // Reset form fields and show success message
-    setCommonName("");
-    setScientificName("");
-    setOrigin("");
-    setFamily("");
-    setImageUrl("");
-    props.refreshPlant();
-    setShowSuccess(true);
-  } catch (err) {
-    // Handle plant creation error
-    setErrorMessage("Error: Unable to add plant. Please try again later."); // Generic error message
-    console.error("Error adding plant:", err);
-    setShowError(true);
-  }
-};
+      // Reset form fields and show success message
+      setCommonName("");
+      setScientificName("");
+      setOrigin("");
+      setFamily("");
+      setImageUrl("");
+      props.refreshPlant();
+      setShowSuccess(true);
+    } catch (err) {
+      // Handle plant creation error
+      setErrorMessage("Error: Unable to add plant. Please try again later."); // Generic error message
+      console.error("Error adding plant:", err);
+      setShowError(true);
+    }
+  };
 
-const handleChange = (e) => {
-  setFamily(e.target.value);
-};
-  
+  const handleChange = (e) => {
+    setFamily(e.target.value);
+  };
 
   return (
     <Flex flexDir="column" align="center" mt={10} alignContent={"center"}>
@@ -187,22 +185,22 @@ const handleChange = (e) => {
             Submit
           </Button>
           {showPopup && (
-        <Text mt={2} color="red.500">
-          Please fill in all required fields.
-        </Text>
-      )}
+            <Text mt={2} color="red.500">
+              Please fill in all required fields.
+            </Text>
+          )}
 
-      {showSuccess && (
-        <Text mt={2} color="green.500">
-          Buddy successfully added!
-        </Text>
-      )}
+          {showSuccess && (
+            <Text mt={2} color="green.500">
+              Buddy successfully added!
+            </Text>
+          )}
 
-      {showError && (
-        <Text mt={2} color="red.500">
-          Error while adding the new buddy.
-        </Text>
-      )}
+          {showError && (
+            <Text mt={2} color="red.500">
+              Error while adding the new buddy.
+            </Text>
+          )}
         </Box>
       </form>
     </Flex>

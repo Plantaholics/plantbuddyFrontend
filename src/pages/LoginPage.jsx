@@ -21,7 +21,6 @@ import {
 } from "@chakra-ui/react";
 import backgroundlogin from "../assets/backgroundlogin.png";
 
-
 const API_URL = "http://localhost:5010";
 
 function LoginPage(prop) {

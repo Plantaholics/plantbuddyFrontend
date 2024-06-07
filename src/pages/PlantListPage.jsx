@@ -7,7 +7,6 @@ import plantsService from "../services/plants.services";
 import { Grid, Box } from "@chakra-ui/react";
 import { AuthContext } from "../context/auth.context";
 
-
 function PlantListPage(props) {
   const navigate = useNavigate();
   const [plants, setPlants] = useState([]);
@@ -26,7 +25,7 @@ function PlantListPage(props) {
 
   return (
     <>
-      { isLoggedIn && <AddPlant refreshPlant={getAllPlants} />}
+      {isLoggedIn && <AddPlant refreshPlant={getAllPlants} />}
 
       <Grid templateColumns="repeat(4, 1fr)" gap={4} mt="20px">
         {plants.map((plant) => (

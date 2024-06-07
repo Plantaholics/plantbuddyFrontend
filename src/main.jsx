@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 
 import { AuthProviderWrapper } from "./context/auth.context";
 
@@ -15,5 +15,5 @@ root.render(
         <App />
       </AuthProviderWrapper>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

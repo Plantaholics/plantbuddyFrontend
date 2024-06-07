@@ -17,9 +17,9 @@ function AddCare(props) {
   useEffect(() => {
     if (careId) {
       // Fetch the existing care details if careId is provided
-      careService
-        .getCare(careId)
-        console.log("careId", careId)
+      careService.getCare(careId);
+      console
+        .log("careId", careId)
         .then((response) => {
           const care = response.data;
           setWater(care.water);
@@ -82,7 +82,7 @@ function AddCare(props) {
   };
 
   return (
-<Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center">
+    <Box p={{ base: 4, md: 6 }} display="flex" justifyContent="center">
       <Box
         p={{ base: 4, md: 6 }}
         width="100%"
@@ -99,7 +99,11 @@ function AddCare(props) {
         <form onSubmit={handleFormSubmit}>
           <Box mb={4}>
             <Text mb={2}>Water</Text>
-            <Select name="water" value={water} onChange={(e) => setWater(e.target.value)}>
+            <Select
+              name="water"
+              value={water}
+              onChange={(e) => setWater(e.target.value)}
+            >
               <option value="">Select an option</option>
               <option value="once a day">once a day</option>
               <option value="once a week">once a week</option>
@@ -135,7 +139,11 @@ function AddCare(props) {
 
           <Box mb={4}>
             <Text mb={2}>Sunlight</Text>
-            <Select name="sunlight" value={sunlight} onChange={(e) => setSunlight(e.target.value)}>
+            <Select
+              name="sunlight"
+              value={sunlight}
+              onChange={(e) => setSunlight(e.target.value)}
+            >
               <option value="">Select an option</option>
               <option value="morning">morning</option>
               <option value="midday">midday</option>

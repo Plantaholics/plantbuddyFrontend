@@ -18,37 +18,35 @@ import IsAnon from "./components/IsAnnon";
 function App() {
   return (
     <div>
-
       <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Navbar />
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <Navbar />
 
-      <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/plants" element={<PlantListPage />} />
-        <Route
-          exact
-          path="/plants/:plantId"
-          element={
-            <IsPrivate>
-              <PlantDetailsPage />{" "}
-            </IsPrivate>
-          }
-        />
-        <Route 
-          exact
-          path="/plants/edit/:plantId"
-          element={<EditPlantPage/>}
-        />
-        <Route path="/signup"element={<SignupPage />} />
-        
-        <Route path="/login" element={<LoginPage />}/>
-      </Routes>
-      <Footer />
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/plants" element={<PlantListPage />} />
+          <Route
+            exact
+            path="/plants/:plantId"
+            element={
+              <IsPrivate>
+                <PlantDetailsPage />{" "}
+              </IsPrivate>
+            }
+          />
+          <Route
+            exact
+            path="/plants/edit/:plantId"
+            element={<EditPlantPage />}
+          />
+          <Route path="/signup" element={<SignupPage />} />
+
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+        <Footer />
       </ChakraProvider>
     </div>
   );
 }
-
 
 export default App;
