@@ -186,7 +186,7 @@ function EditPlantPage(props) {
               type="text"
               name="scientific_name"
               value={scientific_name}
-              onChange={(e) => setScientificName(e.target.value)}
+              onChange={{handleFileUpload}}
             />
           </Box>
           <Box mb={4}>
