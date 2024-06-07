@@ -11,7 +11,7 @@ function HomePage() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      minH="100vh"
+      minH="90vh"
       backgroundImage={backgroundhp}
       backgroundSize="cover"
       backgroundPosition="center"

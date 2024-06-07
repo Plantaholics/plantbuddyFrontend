@@ -27,7 +27,7 @@ function PlantListPage(props) {
     <>
       {isLoggedIn && <AddPlant refreshPlant={getAllPlants} />}
 
-      <Grid templateColumns="repeat(4, 1fr)" gap={4} mt="20px">
+      <Grid templateColumns="repeat(4, 1fr)" gap={4} mt={20} mb={20}>
         {plants.map((plant) => (
           <Box key={plant._id}>
             <PlantCard plant={plant} />
