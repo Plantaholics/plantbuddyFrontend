@@ -23,7 +23,7 @@ function EditPlantPage(props) {
   const [scientific_name, setScientificName] = useState("");
   const [origin, setOrigin] = useState("");
   const [family, setFamily] = useState("");
-  const [picture_url, setPictureUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [careId, setCareId] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -33,6 +33,26 @@ function EditPlantPage(props) {
   const toast = useToast();
   // Define storedToken in the component's scope
   const storedToken = localStorage.getItem("authToken");
+
+  /******************************************************/
+
+  const handleFileUpload = (e) => {
+    console.log("The file to be uploaded is: ", e.target.files[0]);
+
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", e.target.files[0]);
+
+    axios
+      .post(`${API_URL}/api/upload`, uploadData)
+      .then((response) => {
+        console.log("response is: ", response);
+        // response carries "fileUrl" which we can use to update the state
+        setImageUrl(response.data.fileUrl);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
+
+ /******************************************************/
 
   useEffect(() => {
   const storedToken = localStorage.getItem("authToken");
@@ -46,7 +66,7 @@ function EditPlantPage(props) {
         setScientificName(onePlant.scientific_name);
         setOrigin(onePlant.origin);
         setFamily(onePlant.family);
-        setPictureUrl(onePlant.picture_url);
+        setImageUrl(onePlant.imageUrl);
         if (onePlant.care) {
           setCareId(onePlant.care._id);
         }
@@ -68,7 +88,7 @@ function EditPlantPage(props) {
       scientific_name,
       origin,
       family,
-      picture_url,
+      picture_url: imageUrl,
     };
     // Update the plant using plantsService
     plantsService
@@ -196,10 +216,8 @@ function EditPlantPage(props) {
           <Box mb={4}>
             <Text mb={2}>Image</Text>
             <Input
-              type="text"
-              name="picture_url"
-              value={picture_url}
-              onChange={(e) => setPictureUrl(e.target.value)}
+              type="file"
+              onChange={(e) => setImageUrl(e.target.value)}
             />
           </Box>
           <Button type="submit" colorScheme="green" mb={4} width="100%">
